@@ -5,11 +5,13 @@ import matplotlib.pyplot as plt
 class EdmondsKarp:
     def __init__(self, vertices):
         self.vertices = vertices
-        self.capacity = np.zeros((vertices, vertices), dtype=int)  # Матрица пропускных способностей
+        self.capacity = np.zeros((vertices, vertices), dtype=int)
+        self.residual_capacity = self.capacity.copy()
 
     def add_edge(self, u, v, capacity):
         """Добавляет ребро в граф с заданной пропускной способностью"""
         self.capacity[u][v] += capacity
+        self.residual_capacity[u][v] += capacity
 
     def bfs(self, source, sink, parent):
         """Поиск в ширину для нахождения увеличивающего пути"""
@@ -81,5 +83,4 @@ ek.add_edge(3, 5, 20)
 ek.add_edge(4, 3, 7)
 ek.add_edge(4, 5, 4)
 
-print("Максимальный поток:", ek.max_flow(0, 5))
 ek.visualize_graph()
